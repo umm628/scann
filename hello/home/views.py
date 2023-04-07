@@ -1,7 +1,5 @@
 from multiprocessing import context
-import cv2
-from django.http import StreamingHttpResponse
-from django.shortcuts import render, HttpResponse
+import cv2 
 from django.shortcuts import render
 from datetime import datetime
 
@@ -27,7 +25,44 @@ def order(request):
     return render(request, 'order.html')
 
 
+
+
+import qrcode
+
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.views import View
+
+
+    
+
+
+
+
+
+def table_qr_code_view(request):
+    return render(request, 'table_qr_code.html')
+
+
+def table_detail_view(request):
+    return render(request, 'table_detail.html')
+
+
+from django.shortcuts import render
+from .models import CartItem
+
 def menu_view(request):
+    if request.method == 'POST':
+        item_name = request.POST.getlist('item_name[]')
+        item_price = request.POST.getlist('item_price[]')
+        print(request.POST)
+
+        for i in range(len(item_name)):
+            if item_name[i] and item_price[i]:
+                cart_item = CartItem(name=item_name[i], price=item_price[i])
+                print(item_name[i],item_price[i])
+                cart_item.save()
+    
     return render(request, 'menu.html')
 
 def mc_view(request):
@@ -190,3 +225,59 @@ def place_order(request):
     return render(request, 'menu.html', {'form': form})
 
 
+from django.shortcuts import render
+from .models import Order
+
+def place_order(request):
+    if request.method == 'POST':
+        
+        
+        order.save()
+    return render(request, 'menu.html')
+
+# def get(self, request, table_number):
+#     qr_code = self.generate_qr_code(table_number)
+#     print(f'QR code generated for table {table_number}')
+
+# def get(self, request, table_number):
+#     qr_code = self.generate_qr_code(table_number)
+#     print(f'QR code generated for table {table_number}')
+#     response = HttpResponse(content_type='image/png')
+#     qr_code.save(response, 'PNG')
+#     print('QR code image saved to response')
+#     return response
+
+# from django.shortcuts import render
+
+# def booking(request, table_number):
+#     context = {
+#         'table_number': table_number
+#     }
+#     return render(request, 'booking.html', context)
+
+# import qrcode
+# from io import BytesIO
+# from django.http import HttpResponse
+# from django.shortcuts import render
+
+
+# def qr_code(request):
+#     # Get the table number from the URL
+#     table_number = request.GET.get('table_number', '')
+    
+#     # Generate the QR code image
+#     img = qrcode.make(f'Table number: {table_number}')
+    
+#     # Create a BytesIO object to write the image to
+#     buffer = BytesIO()
+#     img.save(buffer)
+    
+#     # Set the content type of the response to image/png
+#     response = HttpResponse(buffer.getvalue(), content_type='image/png')
+    
+#     return response
+
+
+# def booking(request, table_number):
+#     context = {'table_number': table_number}
+#     return render(request, 'booking.html', context)

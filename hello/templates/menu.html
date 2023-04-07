@@ -134,10 +134,11 @@ ul.cart-items li .item-price {
 			<h2>Chicken Buckets</h2>
 			<div class="item" data-price="19.99">
                 <div class= container "px-5">
-                <img src="https://media.istockphoto.com/id/1221182606/photo/fied-chicken.jpg?b=1&s=170667a&w=0&k=20&c=VGoIod1uzQmaJCcb7bMh-XxeXDQR3DLUXI9hOvfeOEg=" alt="Bucket of chicken">
-				<h3>8-Piece Bucket</h3>
-				<p>Freshly prepared, hand-breaded chicken.</p>
-				<p>$19.99</p>
+				
+						<img src="https://media.istockphoto.com/id/1221182606/photo/fied-chicken.jpg?b=1&amp;s=170667a&amp;w=0&amp;k=20&amp;c=VGoIod1uzQmaJCcb7bMh-XxeXDQR3DLUXI9hOvfeOEg=" alt="Bucket of chicken">
+						<h3>8-Piece Bucket</h3>
+						<p>Freshly prepared, hand-breaded chicken.</p>
+						<p>$19.99</p>
 				<a href="#" class="add-to-cart">Add to Cart</a>
 			</div>
 			<div class="item" data-price="19.99">
@@ -151,7 +152,7 @@ ul.cart-items li .item-price {
 		<section>
 			<h2>Sandwiches</h2>
 							<div class="item" data-price="19.99">
-								<img src="https://media.istockphoto.com/id/1391938207/photo/tuna-salad-sandwich-cut-in-half.jpg?b=1&s=170667a&w=0&k=20&c=zbKlFMdxZfaBkvY1Pq1OFqgqxXNVsI4dAY0Yovdvn2Q=" alt="Famous Chicken Sandwich"> 
+								<img src="/static/tuna-sandwich.jpg" alt="Famous Chicken Sandwich"> 
 								<h3>sandwich</h3>
 								<p>Freshly prepared, hand-breaded chicken.</p>
 								<p>$29.99</p>
@@ -160,22 +161,15 @@ ul.cart-items li .item-price {
 
 				
 				<section>
-					<h2>Chicken Buckets</h2>
+					<h2>Tuna salad Sandwich </h2>
 					
-					{% comment %} <div class="item" data-price="{{ item.price }}">
+					<div class="item" data-price="{{ item.price }}">
 						<img src="https://media.istockphoto.com/id/1391938207/photo/tuna-salad-sandwich-cut-in-half.jpg?b=1&s=170667a&w=0&k=20&c=zbKlFMdxZfaBkvY1Pq1OFqgqxXNVsI4dAY0Yovdvn2Q=" alt="Famous Chicken Sandwich">
 						<h3>{{ item.name }}</h3>
 						<p>{{ item.description }}</p>
 						<p>${{ 240 }}</p>
 						<a href="#" class="add-to-cart">Add to Cart</a>
-					</div> {% endcomment %}
-
-					<div class="item" data-price="19.99">
-						<img src="https://media.istockphoto.com/id/1391938207/photo/tuna-salad-sandwich-cut-in-half.jpg?b=1&s=170667a&w=0&k=20&c=zbKlFMdxZfaBkvY1Pq1OFqgqxXNVsI4dAY0Yovdvn2Q=" alt="Famous Chicken Sandwich"> 
-						<h3>sandwich</h3>
-						<p>Freshly prepared, hand-breaded chicken.</p>
-						<p>$29.99</p>
-						<a href="#" class="add-to-cart">Add to Cart</a>
+					</div>
 					
 				</section>
 				
@@ -208,13 +202,23 @@ ul.cart-items li .item-price {
 						  cartTotal += itemPrice;
 						  
 						  cartItemsElement.innerHTML = '';
+						  document.getElementById('cartForm').innerHTML = '';
 						  cartItems.forEach(cartItem => {
 							const li = document.createElement('li');
 							li.textContent = `${cartItem.name} - $${cartItem.price.toFixed(2)}`;
 							cartItemsElement.appendChild(li);
-						  });
+							document.getElementById('cartForm').innerHTML += '<input type="text" value="'+cartItem.name+'" name="item_name[]"><input type="text" value="'+cartItem.price.toFixed(2)+'" name="item_price[]">'
+						});
 						  
 						  cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
 						}
 					  });
 					});
+				</script>
+				<form method="post"  action="/menu"> {% csrf_token %}
+						<div id='cartForm'></div>
+						
+						<button type="submit">Place Order</button>
+					</form>
+				</div>
+				
