@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>KFC Menu</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f5f5f5;
+		}
+
+		header {
+			background-color: #e31837;
+			color: #fff;
+			text-align: center;
+			padding: 10px;
+		}
+
+		h1 {
+			margin: 0;
+			font-size: 36px;
+		}
+
+		main {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		section {
+			margin-bottom: 30px;
+		}
+
+		h2 {
+			font-size: 24px;
+			margin-bottom: 10px;
+		}
+
+		.item {
+			background-color: #fff;
+			padding: 20px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 5px;
+		}
+
+		.item img {
+			display: block;
+			margin: 0 auto;
+			max-width: 100%;
+		}
+
+		h3 {
+			margin-top: 20px;
+			font-size: 20px;
+		}
+
+		p {
+			margin: 10px 0;
+			font-size: 18px;
+		}
+
+		p:last-child {
+			font-weight: bold;
+			font-size: 24px;
+		}
+
+		.add-to-cart {
+			display: inline-block;
+			background-color: #e31837;
+			color: #fff;
+			padding: 10px 20px;
+			border-radius: 5px;
+			text-decoration: none;
+			transition: background-color 0.3s ease-in-out;
+		}
+
+		.add-to-cart:hover {
+			background-color: #b81028;
+		}
+
+		/* Style for the cart section */
+section.cart {
+  border-top: 1px solid #ccc;
+  margin-top: 50px;
+  padding-top: 30px;
+}
+
+/* Style for the list of items in the cart */
+ul.cart-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.cart-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+ul.cart-items li:last-child {
+  margin-bottom: 0;
+}
+
+ul.cart-items li .item-name {
+  flex-grow: 1;
+  font-size: 18px;
+}
+
+ul.cart-items li .item-price {
+  font-size: 18px;
+}
+
+/* Style for the total price */
+.cart-total {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: right;
+}
+
+	</style>
+</head>
+<body>
+	<header>
+		<script src="app.js"></script>
+
+		<h1>KFC Menu</h1>
+	</header>
+	<main>
+		<section>
+			<h2>Chicken Buckets</h2>
+			<div class="item" data-price="19.99">
+                <div class= container "px-5">
+                <img src="https://media.istockphoto.com/id/1221182606/photo/fied-chicken.jpg?b=1&s=170667a&w=0&k=20&c=VGoIod1uzQmaJCcb7bMh-XxeXDQR3DLUXI9hOvfeOEg=" alt="Bucket of chicken">
+				<h3>8-Piece Bucket</h3>
+				<p>Freshly prepared, hand-breaded chicken.</p>
+				<p>$19.99</p>
+				<a href="#" class="add-to-cart">Add to Cart</a>
+			</div>
+			<div class="item" data-price="19.99">
+				<img src="https://media.istockphoto.com/id/576730586/photo/red-bucket-of-fried-chicken-on-white-background-2.jpg?b=1&s=170667a&w=0&k=20&c=T90HYU4njP0c5hLpHYoHnaauQfYKdx3-LEZYOZuBzcI=" alt="Bucket of chicken">
+				<h3>12-Piece Bucket</h3>
+				<p>Freshly prepared, hand-breaded chicken.</p>
+				<p>$29.99</p>
+				<a href="#" class="add-to-cart">Add to Cart</a>
+			</div>
+		</section>
+		<section>
+			<h2>Sandwiches</h2>
+							<div class="item" data-price="19.99">
+								<img src="https://media.istockphoto.com/id/1391938207/photo/tuna-salad-sandwich-cut-in-half.jpg?b=1&s=170667a&w=0&k=20&c=zbKlFMdxZfaBkvY1Pq1OFqgqxXNVsI4dAY0Yovdvn2Q=" alt="Famous Chicken Sandwich"> 
+								<h3>sandwich</h3>
+								<p>Freshly prepared, hand-breaded chicken.</p>
+								<p>$29.99</p>
+								<a href="#" class="add-to-cart">Add to Cart</a>
+							</div>
+
+				
+				<section>
+					<h2>Chicken Buckets</h2>
+					
+					{% comment %} <div class="item" data-price="{{ item.price }}">
+						<img src="https://media.istockphoto.com/id/1391938207/photo/tuna-salad-sandwich-cut-in-half.jpg?b=1&s=170667a&w=0&k=20&c=zbKlFMdxZfaBkvY1Pq1OFqgqxXNVsI4dAY0Yovdvn2Q=" alt="Famous Chicken Sandwich">
+						<h3>{{ item.name }}</h3>
+						<p>{{ item.description }}</p>
+						<p>${{ 240 }}</p>
+						<a href="#" class="add-to-cart">Add to Cart</a>
+					</div> {% endcomment %}
+
+					<div class="item" data-price="19.99">
+						<img src="https://media.istockphoto.com/id/1391938207/photo/tuna-salad-sandwich-cut-in-half.jpg?b=1&s=170667a&w=0&k=20&c=zbKlFMdxZfaBkvY1Pq1OFqgqxXNVsI4dAY0Yovdvn2Q=" alt="Famous Chicken Sandwich"> 
+						<h3>sandwich</h3>
+						<p>Freshly prepared, hand-breaded chicken.</p>
+						<p>$29.99</p>
+						<a href="#" class="add-to-cart">Add to Cart</a>
+					
+				</section>
+				
+				  
+				<section>
+					<h2>Cart</h2>
+					<ul id="cart-items"></ul>
+					<p>Total: <span id="cart-total">$0.00</span></p>
+				</section>
+				<script>
+					const addToCartButtons = document.querySelectorAll('.add-to-cart');
+					const cartItemsElement = document.getElementById('cart-items');
+					const cartTotalElement = document.getElementById('cart-total');
+					
+					let cartItems = [];
+					let cartTotal = 0;
+					
+					addToCartButtons.forEach(button => {
+					  button.addEventListener('click', () => {
+						const item = button.parentElement;
+						const itemName = item.querySelector('h3').textContent;
+						const itemPrice = parseFloat(item.getAttribute('data-price'));
+						
+						if (!isNaN(itemPrice)) {
+						  cartItems.push({
+							name: itemName,
+							price: itemPrice
+						  });
+						  
+						  cartTotal += itemPrice;
+						  
+						  cartItemsElement.innerHTML = '';
+						  cartItems.forEach(cartItem => {
+							const li = document.createElement('li');
+							li.textContent = `${cartItem.name} - $${cartItem.price.toFixed(2)}`;
+							cartItemsElement.appendChild(li);
+						  });
+						  
+						  cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
+						}
+					  });
+					});

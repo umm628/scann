@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart{% endblock title %}
+
+{% block body %}
+
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    td:last-child {
+      text-align: center;
+    }
+    form {
+      display: inline-block;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #3e8e41;
+    }
+  </style>
+
+  <h1>Cart</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+        <tr>
+          <td>{{ item.product.name }}</td>
+          <td>
+            <form method="post">
+              {% csrf_token %}
+              <input type="hidden" name="product_id" value="{{ item.product.id }}">
+              <input type="number" name="quantity" min="1" value="{{ item.quantity }}" onchange="this.form.submit()">
+            </form>
+          </td>
+          <td>{{ item.product.price }}</td>
+          <td>{{ item.product.price * item.quantity }}</td>
+          <td>
+            <form method="post">
+              {% csrf_token %}
+              <input type="hidden" name="product_id" value="{{ item.product.id }}">
+              <button type="submit">Remove</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="3"></td>
+        <td>Total:</td>
+        <td>{{ total }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <form method="post" action="{% url 'order' %}">
+    {% csrf_token %}
+    <button type="submit">Place Order</button>
+  </form>
+{% endblock body %}

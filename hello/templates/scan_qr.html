@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Scan QR code{% endblock title %}
+
+{% block body %}
+  <h1>Scan QR code</h1>
+  {% if not scanning %}
+    <p>Click the button below to start scanning for QR codes:</p>
+    <form method="POST">
+      {% csrf_token %}
+      <button type="submit" name="start">Start scanning</button>
+    </form>
+  {% else %}
+    <p>Scanning for QR codes...</p>
+    <p>Press 'q' to stop scanning.</p>
+ 

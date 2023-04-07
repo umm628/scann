@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block body %}
+  <div class="container mt-4">
+    <h1>QR Code Scanner</h1>
+    <hr>
+    <div class="row">
+      <div class="col-md-6">
+        <div id="qr-video"></div>
+      </div>
+      <div class="col-md-6">
+        <div id="qr-result"></div>
+      </div>
+    </div>
+  </div>
+  {% if not started %}
+    <p>Click the button below to start scanning for QR codes:</p>
+    <form method="POST">
+      {% csrf_token %}
+      <button type="submit" name="start">Start scanning</button>
+    </form>
+  {% else %}
+    <p>Scanning for QR codes...</p>
+  {% endif %}
+
+  <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
+  <script>
+    var started = {{ started|default:"false"|lower }};
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+      .then(function (stream) {
+        var video = document.createElement("video");
+        document.querySelector("#qr-video").appendChild(video);
+        video.setAttribute("playsinline", true);
+        video.srcObject = stream;
+        video.play();
+        if (started) {
+          requestAnimationFrame(tick);
+        }
+      });
+      function tick() {
+        console.log('Scanning for QR codes...'); // Debug message
+      
+        var video = document.querySelector("video");
+        var canvas = document.createElement("canvas");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        canvas.getContext("2d").drawImage(video, 0, 0);
+        var imageData = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+        var code = jsQR(imageData.data, imageData.width, imageData.height);
+        if (code) {
+          console.log('QR code detected:', code.data); // Debug message
+          document.querySelector("#qr-result").innerHTML = code.data;
+        } else {
+          console.log('No QR code detected'); // Debug message
+        }
+        requestAnimationFrame(tick);
+      }
+      
+
+    function tick() {
+      var video = document.querySelector("video");
+      var canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext("2d").drawImage(video, 0, 0);
+      var imageData = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height);
+      var code = jsQR(imageData.data, imageData.width, imageData.height);
+      if (code) {
+        document.querySelector("#qr-result").innerHTML = code.data;
+      }
+      if (started) {
+        requestAnimationFrame(tick);
+      }
+    }
+  </script>
+{% endblock body %}
